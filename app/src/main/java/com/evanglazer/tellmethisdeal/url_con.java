@@ -1,4 +1,4 @@
-package HTTP;
+package com.evanglazer.tellmethisdeal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,39 +11,37 @@ import java.net.URL;
  * Created by Evan on 12/22/2015.
  */
 public class url_con {
-    private static StringBuilder sb;
-    public static String getData(String uri)
-    {
+    public static String getData(String uri) {
+
         BufferedReader reader = null;
-        try{
+
+        try {
             URL url = new URL(uri);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            // get content
-            sb = new StringBuilder();
+
+            StringBuilder sb = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String line;
-            while((line = reader.readLine()) != null)
-            {
-                sb.append(line+"\n");
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
             }
-        }
 
-        catch (MalformedURLException e) {
+            return sb.toString();
+
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            if(reader != null)
+            return null;
+        } finally {
+            if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    return null;
                 }
+            }
         }
 
-        return sb.toString();
     }
-
 }

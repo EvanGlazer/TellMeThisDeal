@@ -1,4 +1,4 @@
-package HTTP;
+package com.evanglazer.tellmethisdeal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class json_state_city
 {
-    static List<pojo_state_city> cityList;
-    public static List<pojo_state_city> parseFeed(String content)
+    static List<pojo_state_county> cityList;
+    public static List<pojo_state_county> parseFeed(String content)
     {
             try {
                 JSONArray ar = new JSONArray(content);
@@ -21,8 +21,8 @@ public class json_state_city
                 for(int i=0; i<ar.length(); i++)
                 {
                     JSONObject obj = ar.getJSONObject(i);
-                    pojo_state_city city = new pojo_state_city();
-                    city.setCountryName(obj.getString("full_county_name"));
+                    pojo_state_county city = new pojo_state_county();
+                    city.setCountyName(obj.getString("full_county_name"));
                     cityList.add(city);
                 }
 
