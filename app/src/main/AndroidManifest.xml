@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".state_city"/>
+        <activity android:name=".sell_setup"/>
     </application>
 
 </manifest>
