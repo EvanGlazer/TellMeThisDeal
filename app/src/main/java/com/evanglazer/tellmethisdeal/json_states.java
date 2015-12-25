@@ -10,18 +10,18 @@ import java.util.List;
  * Created by Evan on 12/22/2015.
  */
 public class json_states {
-    static List<pojo_states> stateList;
+    static ArrayList<pojo_states> stateList = new ArrayList<>();
 
-    public static List<pojo_states> parseFeed(String content) {
+    public static ArrayList<pojo_states> parseFeed(String content) {
         try {
             JSONArray ar = new JSONArray(content);
-            stateList = new ArrayList<>();
+
             for (int i = 0; i < ar.length(); i++) {
                 JSONObject obj = ar.getJSONObject(i);
-                pojo_states state = new pojo_states();
-                state.setState_name(obj.getString("name"));
+               // pojo_states state = new pojo_states(obj.getString("name"), obj.getString("state_abbreviation"));
+                stateList.add(new pojo_states(obj.getString("name"), obj.getString("state_abbreviation")));
                 //state.setState_abv(obj.getString("abbreviation"));
-                stateList.add(state);
+
             }
 
         } catch (JSONException e) {

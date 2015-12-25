@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,31 +17,53 @@ import java.util.List;
  */
 
 
-public class state_adapter extends ArrayAdapter<pojo_states> {
+public class state_adapter extends BaseAdapter {
     Context mContext;
-    List<pojo_states> mStates;
+    ArrayList<pojo_states> mPies;
     LayoutInflater mInflater;
 
-    public state_adapter(Context c, int resource, List<pojo_states> states)
+    public state_adapter(Context c, ArrayList<pojo_states> pies)
     {
-        super(c,resource,states);
+        mPies = pies;
         mContext = c;
-        mStates = states;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
+    public int getCount() {
+        return mPies.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mPies.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater =
-                (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.row_layout, parent, false);
+        ViewHolder viewHolder;
+        if(convertView == null)
+        {
+            convertView = mInflater.inflate(R.layout.row_layout, null);
+            viewHolder = new ViewHolder();
+            viewHolder.textName = (TextView) convertView.findViewById(R.id.textName);
+            viewHolder.textabv = (TextView) convertView.findViewById(R.id.textabv);
+            convertView.setTag(viewHolder);
+        }
+        else
+        {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
-        //Display flower name in the TextView widget
-        pojo_states states = mStates.get(position);
-        TextView tv = (TextView) view.findViewById(R.id.textview);
-        tv.setText(states.getState_name());
-
-        return view;
+        pojo_states currentState = mPies.get(position);
+        viewHolder.textName.setText(currentState.mName);
+        viewHolder.textabv.setText(currentState.mabv);
+        return convertView;
     }
+
 }
